@@ -1,0 +1,37 @@
+---
+
+## https://www.ernw.de/download/ERNW_Guide_to_Configure_Securely_Windows_Servers_For_IPv6_v1_0.pdf
+
+## Note: first implies second
+- name: Disable Automatic Configuration, Neighbor Discovery Process and MLD Operation
+  raw: "netsh interface ipv6 set global mldlevel=none"
+- name: Adding Static Entries Into Neighbor Cache
+  raw: "netsh interface ipv6 set neighbors \"{{ ipv6_win_if }}\" \"{{ item.ipv6 }}\" \"{{ item.mac }}\""
+  with_items: "{{ ipv6_neighbors_list }}"
+#ipv6_win_if
+#ipv6_neighbors_list:
+#  - { ipv6: '', mac: '' }
+
+- name: Disabling ICMPv6 Redirects
+  raw: "netsh interface ipv6 set global icmpredirects=disabled"
+- name: Configuring Manually the Default Current Hop Limit 
+  raw: "netsh interface ipv6 set global defaultcurhoplimit=64"
+- name: Disabling ISATAP and Teredo
+  raw: "{{ item }}"
+  with_items:
+    - netsh interface ipv6 isatap set state disabled
+    - netsh interface ipv6 set teredo type=disabled
+    - netsh interface ipv6 6to4 set state disabled
+
+- name: Setting the MTU, Disabling Router Discovery and Minimising DAD Transmits Per Interface
+  raw: 'netsh  interface  ipv6  set  interface  "1"  mtu=1280  dadtransmits=0 routerdiscovery=disabled'
+
+- name: Defining Manually Static Routes
+  raw: "netsh interface  ipv6  set  route  2001:db8:1:2::/64  \"{{ ipv6_win_if }}\" 2001:db8:1:1::1000 0 2 no 5000 6000
+  with_items: "{{ ipv6_static_routes }}"
+#ipv6_static_routes:
+#  - { dst: '2001:db8:1:2::/64', gw: '2001:db8:1:1::1000', metric: 2, valid_lifetime: 5000, prefered_lifetime: 6000 }
+
+## Firewall configuration
+
+
