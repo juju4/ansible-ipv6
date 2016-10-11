@@ -1,9 +1,12 @@
 ---
 
+- debug: var=ansible_os_family
+- debug: var=ipv6_config
 - block:
+## always harden?
+    - include: ipv6-harden.yml
+#      when: ipv6_config is defined or ipv6_config == 'harden'
     - include: ipv6-disable.yml
       when: ipv6_config is not defined or ipv6_config == 'disable'
-    - include: ipv6-harden.yml
-      when: ipv6_config is defined or ipv6_config == 'harden'
-  when: ansible_os_family == 'Linux'
+  when: ansible_system == 'Linux'
 

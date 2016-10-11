@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/juju4/ansible-ipv6.svg?branch=master)](https://travis-ci.org/juju4/ansible-ipv6)
-# ABC ansible role
+# Linux IPv6 ansible role
 
 A simple ansible role to either harden, either disable ipv6 in linux systems.
 

@@ -2,6 +2,9 @@
 driver:
   name: lxd_cli
 
+transport:
+  name: sftp
+
 provisioner:
   name: ansible_playbook
   roles_path: ../

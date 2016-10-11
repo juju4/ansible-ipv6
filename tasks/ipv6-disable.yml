@@ -28,7 +28,7 @@
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
 
 ## either control router sollicitation/advertisement to avoid malicious rerouting of IPv6
-## Monitor? 
+## Monitor?
 ##  https://thc.org/thc-ipv6/
 ##  http://www.si6networks.com/tools/ipv6toolkit/
 ## Filter?
