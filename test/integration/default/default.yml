@@ -5,5 +5,5 @@
 #  vars:
 #    - a:
   roles:
-    - ipv6
+    - juju4.ipv6
 
