@@ -13,7 +13,7 @@
     - net.ipv6.conf.lo.disable_ipv6
 
 - name: Debian | unblacklist ipv6 in modprobe
-  lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' create=yes state=absent"
+  lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' state=absent"
   notify:
     - modipv6
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
