@@ -1,7 +1,6 @@
 ---
 
 ipv6_harden_settings:
-#    - { n: 'net.ipv6.conf.all.disable_ipv6', v: 1 }
     - { n: 'net.ipv6.conf.all.forwarding', v: 0 }
 #    - { n: 'net.ipv6.conf.all.send_redirects', v: 0 }
     - { n: 'net.ipv6.conf.all.accept_redirects', v: 0 }
