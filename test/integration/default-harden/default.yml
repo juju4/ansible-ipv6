@@ -2,8 +2,8 @@
 
 - hosts: all
 #- hosts: test-kitchen
-#  vars:
-#    - a:
+  vars:
+    - ipv6_config: 'harden'
   roles:
     - juju4.ipv6
 
