@@ -1,5 +1,8 @@
 ---
 
+- name: ensure ipv6 module loaded
+  modprobe: name=ipv6 state=present
+
 - name: harden ipv6 sysctl config - network
   sysctl: name="{{ item.n }}" value="{{ item.v }}" sysctl_set=yes state=present reload=yes
   with_items: "{{ ipv6_harden_settings }}"
