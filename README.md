@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/juju4/ansible-ipv6.svg?branch=master)](https://travis-ci.org/juju4/ansible-ipv6)
+[![Build Status - Master](https://travis-ci.org/juju4/ansible-ipv6.svg?branch=master)](https://travis-ci.org/juju4/ansible-ipv6)
+[![Build Status - Devel](https://travis-ci.org/juju4/ansible-ipv6.svg?branch=devel)](https://travis-ci.org/juju4/ansible-ipv6/branches)
 # Linux IPv6 ansible role
 
 A simple ansible role to either harden, either disable ipv6 in linux systems.
@@ -9,6 +10,7 @@ A simple ansible role to either harden, either disable ipv6 in linux systems.
 It was tested on the following versions:
  * 1.9
  * 2.0
+ * 2.2
 
 ### Operating systems
 
@@ -22,7 +24,7 @@ For example
 ```
 - host: all
   roles:
-    - ipv6
+    - juju4.ipv6
 ```
 
 ## Variables
@@ -35,13 +37,13 @@ This role has a travis basic test (for github), more advanced with kitchen and a
 
 Once you ensured all necessary roles are present, You can test with:
 ```
-$ cd /path/to/roles/ipv6
+$ cd /path/to/roles/juju4.ipv6
 $ kitchen verify
 $ kitchen login
 ```
 or
 ```
-$ cd /path/to/roles/ipv6/test/vagrant
+$ cd /path/to/roles/juju4.ipv6/test/vagrant
 $ vagrant up
 $ vagrant ssh
 ```
