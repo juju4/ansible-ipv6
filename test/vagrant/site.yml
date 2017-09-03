@@ -2,5 +2,5 @@
 
 - hosts: all
   roles:
-    - ipv6
+    - juju4.ipv6
 
