@@ -11,6 +11,13 @@
   include_vars: "Alpine.yml"
   when: ansible_os_family == "Alpine"
 
+- name: Check if IPv6 disabled at grub command line
+  command: cat /proc/cmdline
+  changed_when: false
+  ignore_errors: true
+  register: cmdline
+
+- debug: var=cmdline
 - debug: var=ansible_os_family
 - debug: var=ipv6_config
 - block:
@@ -18,5 +25,4 @@
       when: ipv6_config is defined and ipv6_config == 'harden'
     - include: ipv6-disable.yml
       when: ipv6_config is not defined or ipv6_config == 'disable'
-  when: ansible_system == 'Linux'
-
+  when: ansible_system == 'Linux' and not (' ipv6.disable=1' in cmdline.stdout)
