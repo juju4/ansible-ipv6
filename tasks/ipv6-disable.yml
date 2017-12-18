@@ -20,6 +20,12 @@
     - rmmodipv6
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
 
+- name: Ensure system-config-network package is present
+  package:
+    name: system-config-network
+    state: present
+  when: ansible_os_family == 'RedHat'
+
 - name: RedHat | disable ipv6 in sysconfig/network
   lineinfile: "dest=/etc/sysconfig/network regexp='^{{ item.regexp }}' line='{{ item.line }}'"
   with_items:
