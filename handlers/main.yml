@@ -12,3 +12,4 @@
 
 - name: restart network
   service: name=network state=restarted
+  when: not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
