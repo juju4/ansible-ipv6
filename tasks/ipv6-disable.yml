@@ -12,22 +12,27 @@
   lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' create=yes"
   notify:
     - rmmodipv6
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: ansible_os_family == 'Debian'
 
 - name: RedHat | placeholder true for ipv6 in modprobe
   lineinfile: "dest=/etc/modprobe.conf line='install ipv6 /bin/true' create=yes"
   notify:
     - rmmodipv6
-  when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
+  when: ansible_os_family == 'RedHat'
 
 - name: RedHat | disable ipv6 in sysconfig/network
-  lineinfile: "dest=/etc/sysconfig/network regexp='^{{ item.regexp }}' line='{{ item.line }}'"
+  lineinfile:
+    dest: /etc/sysconfig/network
+    regexp: "^{{ item.regexp }}"
+    line: "{{ item.line }}"
+    backup: yes
+    create: yes
   with_items:
     - { regexp: 'NETWORKING_IPV6=.*', line: 'NETWORKING_IPV6=NO' }
     - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=no' }
   notify:
     - restart network
-  when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
+  when: ansible_os_family == 'RedHat'
 
 ## either control router sollicitation/advertisement to avoid malicious rerouting of IPv6
 ## Monitor?
