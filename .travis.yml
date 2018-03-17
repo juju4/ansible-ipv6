@@ -88,11 +88,11 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.ipv6/test/integration/default/default.yml --syntax-check'
 
   # Test role.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.ipv6/test/integration/default/default.yml -vv'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.ipv6/test/integration/default/default.yml -vv ${ansible_extra_vars}'
 
   # Test role idempotence.
   - >
-    sudo docker exec "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.ipv6/test/integration/default/default.yml
+    sudo docker exec "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.ipv6/test/integration/default/default.yml ${ansible_extra_vars}
     | tee /tmp/idempotency.log
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
