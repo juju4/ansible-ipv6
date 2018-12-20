@@ -2,7 +2,10 @@
 
 - name: ensure ipv6 module loaded
   modprobe: name=ipv6 state=present
-  when: not (ansible_virtualization_type is defined and (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker"))
+  when: >
+    not (ansible_virtualization_type is defined and
+          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+        )
 
 - name: harden ipv6 sysctl config - network
   sysctl: name="{{ item.n }}" value="{{ item.v }}" sysctl_set=yes state=present reload=yes
@@ -10,7 +13,7 @@
 
 ## if it was disabled before, need to ensure settings are revert
 - name: Ensure IPv6 not disabled with sysctl
-  sysctl: name={{Â item }} value=0 state=present
+  sysctl: name={{ Â  item }} value=0 state=present
   with_items:
     - net.ipv6.conf.all.disable_ipv6
     - net.ipv6.conf.default.disable_ipv6
@@ -36,4 +39,3 @@
   notify:
     - restart network
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
-

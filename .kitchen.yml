@@ -13,7 +13,6 @@ provisioner:
   ansible_verbose: false
   ansible_verbosity: 3
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
-#  ansible_yum_repo: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
 #  require_chef_omnibus: false
   require_ansible_omnibus: true
 #  require_chef_for_busser: false
@@ -21,9 +20,10 @@ provisioner:
   ansible_connection: ssh
 
 platforms:
+  - name: ubuntu-18.04
   - name: ubuntu-16.04
-  - name: ubuntu-14.04
-  - name: ubuntu-12.04
+#  - name: ubuntu-14.04
+#  - name: ubuntu-12.04
   - name: centos-7
 #  - name: centos-6
 ## "Failed to complete #create action: [Broken pipe] on default-alpine-34"
@@ -37,4 +37,3 @@ suites:
   - name: default-harden
     run_list:
     attributes:
-

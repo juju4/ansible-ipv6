@@ -17,4 +17,3 @@ ipv6_harden_settings:
     - { n: 'net.ipv6.conf.default.dad_transmits', v: 0 }
     - { n: 'net.ipv6.conf.default.max_addresses', v: 1 }
     - { n: 'net.ipv6.conf.all.max_addresses', v: 1 }
-
