@@ -50,6 +50,9 @@ $ vagrant ssh
 
 ## Troubleshooting & Known issues
 
+## References
+
+* https://linux-audit.com/linux-security-guide-for-hardening-ipv6/
 
 ## License
 
