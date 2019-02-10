@@ -11,52 +11,52 @@ env:
     version: 7
     init: /usr/lib/systemd/systemd
     run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
-    ansible_version: 2.4.3.0
+    ansible_version: 2.7.7
     ansible_extra_vars: ""
   - distribution: ubuntu
     version: 18.04
     init: /lib/systemd/systemd
     run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
-    ansible_version: 2.4.3.0
+    ansible_version: 2.7.7
     ansible_extra_vars: ""
   - distribution: ubuntu
     version: 16.04
     init: /lib/systemd/systemd
     run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
-    ansible_version: 2.4.3.0
+    ansible_version: 2.7.7
     ansible_extra_vars: ""
   - distribution: ubuntu
     version: 14.04
     init: /sbin/init
     run_opts: ""
-    ansible_version: 2.4.3.0
+    ansible_version: 2.7.7
     ansible_extra_vars: ""
   - distribution: alpine
     version: 3.7
     init: /sbin/init
     run_opts: ""
-    ansible_version: 2.4.3.0
+    ansible_version: 2.7.7
     ansible_extra_vars: ""
   - distribution: debian
     version: 9
     init: /lib/systemd/systemd
     run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
-    ansible_version: 2.4.3.0
+    ansible_version: 2.7.7
     ansible_extra_vars: ""
 # past ansible version
   - distribution: ubuntu
     version: 16.04
     init: /lib/systemd/systemd
     run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
-    ansible_version: 2.3.3.0
+    ansible_version: 2.6.13
     ansible_extra_vars: ""
 # upcoming ansible version
-  - distribution: ubuntu
-    version: 16.04
-    init: /lib/systemd/systemd
-    run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
-    ansible_version: 2.5.0b2
-    ansible_extra_vars: ""
+#  - distribution: ubuntu
+#    version: 16.04
+#    init: /lib/systemd/systemd
+#    run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
+#    ansible_version: 2.5.0b2
+#    ansible_extra_vars: ""
 
 services:
   - docker
