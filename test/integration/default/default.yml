@@ -1,9 +1,6 @@
 ---
 
 - hosts: all
-#- hosts: test-kitchen
-#  vars:
-#    - a:
   roles:
     - juju4.ipv6
 
