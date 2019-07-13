@@ -2,3 +2,7 @@
 
 ipv6_config: 'disable'
 #ipv6_config: 'harden'
+
+#ipv6_win_if:
+#ipv6_win_neighbors_list:
+#  - { ipv6: '', mac: '' }

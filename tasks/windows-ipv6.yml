@@ -7,10 +7,7 @@
   raw: "netsh interface ipv6 set global mldlevel=none"
 - name: Adding Static Entries Into Neighbor Cache
   raw: "netsh interface ipv6 set neighbors \"{{ ipv6_win_if }}\" \"{{ item.ipv6 }}\" \"{{ item.mac }}\""
-  with_items: "{{ ipv6_neighbors_list }}"
-#ipv6_win_if
-#ipv6_neighbors_list:
-#  - { ipv6: '', mac: '' }
+  with_items: "{{ ipv6_win_neighbors_list | default([]) }}"
 
 - name: Disabling ICMPv6 Redirects
   raw: "netsh interface ipv6 set global icmpredirects=disabled"
