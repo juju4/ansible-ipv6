@@ -31,4 +31,4 @@
   when: ansible_system == 'Linux' and not (' ipv6.disable=1' in cmdline.stdout)
 
 - include: windows-ipv6.yml
-  when: ansible_system == 'Windows'
+  when: ansible_system == 'Win32NT'
