@@ -14,7 +14,7 @@
 
 - name: Disabling ICMPv6 Redirects
   raw: "netsh interface ipv6 set global icmpredirects=disabled"
-- name: Configuring Manually the Default Current Hop Limit 
+- name: Configuring Manually the Default Current Hop Limit
   raw: "netsh interface ipv6 set global defaultcurhoplimit=64"
 - name: Disabling ISATAP and Teredo
   raw: "{{ item }}"
