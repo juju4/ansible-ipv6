@@ -25,9 +25,7 @@
 
 - name: Defining Manually Static Routes
   raw: >
-    netsh interface  ipv6  set  route  2001:db8:1:2::/64  \"{{ ipv6_win_if }}\" 2001:db8:1:1::1000 0 2 no 5000 6000
-  with_items: "{{ ipv6_static_routes }}"
-#ipv6_static_routes:
-#  - { dst: '2001:db8:1:2::/64', gw: '2001:db8:1:1::1000', metric: 2, valid_lifetime: 5000, prefered_lifetime: 6000 }
+    netsh interface  ipv6  set  route {{ item.dst }}  \"{{ ipv6_win_if }}\" {{ item.gw }} 0 {{ item.metric }} no {{ item.valid_lifetime }} {{ item.prefered_lifetime }}
+  with_items: "{{ ipv6_win_static_routes | default([]) }}"
 
 ## Firewall configuration
