@@ -90,6 +90,7 @@ test_script:
 after_test:
 - cmd: |
     %CYG_BASH% -lc 'ansible-playbook -i /cygdrive/c/projects/ansible-ipv6/test/appveyor/inventory /cygdrive/c/projects/ansible-ipv6/test/integration/%SUITE%/default.yml $ANSIBLE_EXTRA_VARS'
+- cmd: "%CYG_BASH% -lc 'ansible -i /cygdrive/c/projects/ansible-ipv6/test/appveyor/inventory -m setup -vvv localhost'"
 - cmd: netsh interface ipv6 show interfaces
 - cmd: netsh interface ipv6 show addresses
 - cmd: netsh interface ipv6 show destinationcache
