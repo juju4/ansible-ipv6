@@ -29,3 +29,6 @@
     - include: ipv6-disable.yml
       when: ipv6_config is not defined or ipv6_config == 'disable'
   when: ansible_system == 'Linux' and not (' ipv6.disable=1' in cmdline.stdout)
+
+- include: windows-ipv6.yml
+  when: ansible_system == 'Windows'
