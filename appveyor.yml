@@ -87,7 +87,7 @@ test_script:
 - cmd: "%CYG_BASH% -lc 'ansible-playbook /cygdrive/c/projects/ansible-ipv6/test/integration/%SUITE%/default.yml --syntax-check'"
 - cmd: "%CYG_BASH% -lc 'ansible-playbook -i /cygdrive/c/projects/ansible-ipv6/test/appveyor/inventory /cygdrive/c/projects/ansible-ipv6/test/integration/%SUITE%/default.yml -vvv $ANSIBLE_EXTRA_VARS'"
 
-after_test:
+on_finish:
 - cmd: |
     %CYG_BASH% -lc 'ansible-playbook -i /cygdrive/c/projects/ansible-ipv6/test/appveyor/inventory /cygdrive/c/projects/ansible-ipv6/test/integration/%SUITE%/default.yml $ANSIBLE_EXTRA_VARS'
 - cmd: "%CYG_BASH% -lc 'ansible -i /cygdrive/c/projects/ansible-ipv6/test/appveyor/inventory -m setup -vvv localhost'"
