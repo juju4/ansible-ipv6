@@ -27,21 +27,5 @@
   raw: >
     netsh interface ipv6 add route prefix={{ item.dst }} interface="{{ ipv6_win_if }}" nexthop={{ item.gw }} siteprefixlength=0 metric={{ item.metric }} publish=no
   with_items: "{{ ipv6_win_static_routes | default([]) }}"
-  ignore_errors: true
-
-- name: Defining Manually Static Routes
-  raw: >
-    netsh interface ipv6 set route 2001:db8:1:2::/64 "Ethernet 8" 2001:db8:1:1::1000 0 2 no
-  ignore_errors: true
-
-- name: Defining Manually Static Routes - Index
-  raw: >
-    netsh interface ipv6 set route 2001:db8:1:2::/64 "27" 2001:db8:1:1::1000 0 2 no
-  ignore_errors: true
-
-- name: Defining Manually Static Routes - add
-  raw: >
-    netsh interface ipv6 add route 2001:db8:1:2::/64 "Ethernet 8" 2001:db8:1:1::1000 0 2 no
-  ignore_errors: true
 
 ## Firewall configuration
