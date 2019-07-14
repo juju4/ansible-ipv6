@@ -29,5 +29,6 @@
   with_items: "{{ ipv6_win_static_routes | default([]) }}"
   register: addroute
   changed_when: "'Ok.' in addroute.stdout"
+  ignore_errors: true
 
 ## Firewall configuration
