@@ -25,18 +25,18 @@
 
 - name: Defining Manually Static Routes
   raw: >
-    netsh interface ipv6 set route {{ item.dst }} "{{ ipv6_win_if }}" {{ item.gw }} 0 {{ item.metric }} no {{ item.valid_lifetime }} {{ item.prefered_lifetime }}
+    netsh interface ipv6 set route {{ item.dst }} "{{ ipv6_win_if }}" {{ item.gw }} 0 {{ item.metric }} no {{ item.valid_lifetime }} {{ item.prefered_lifetime }} store=persistent
   with_items: "{{ ipv6_win_static_routes | default([]) }}"
   ignore_errors: true
 
 - name: Defining Manually Static Routes
   raw: >
-    netsh interface ipv6 set route 2001:db8:1:2::/64 "Ethernet 8" 2001:db8:1:1::1000 0 2 no 6000 5000
+    netsh interface ipv6 set route 2001:db8:1:2::/64 "Ethernet 8" 2001:db8:1:1::1000 0 2 no 6000 5000 store=persistent
   ignore_errors: true
 
 - name: Defining Manually Static Routes - Index
   raw: >
-    netsh interface ipv6 set route 2001:db8:1:2::/64 "27" 2001:db8:1:1::1000 0 2 no 6000 5000
+    netsh interface ipv6 set route 2001:db8:1:2::/64 "27" 2001:db8:1:1::1000 0 2 no
   ignore_errors: true
 
 ## Firewall configuration
