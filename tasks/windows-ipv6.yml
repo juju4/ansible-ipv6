@@ -25,7 +25,7 @@
 
 - name: Defining Manually Static Routes
   raw: >
-    netsh interface ipv6 set route prefix={{ item.dst }} interface="{{ ipv6_win_if }}" nexthop={{ item.gw }} siteprefixlength=0 metric={{ item.metric }} publish=no validlifetime={{ item.valid_lifetime }} preferredlifetime={{ item.prefered_lifetime }}
+    netsh interface ipv6 add route prefix={{ item.dst }} interface="{{ ipv6_win_if }}" nexthop={{ item.gw }} siteprefixlength=0 metric={{ item.metric }} publish=no validlifetime={{ item.valid_lifetime }} preferredlifetime={{ item.prefered_lifetime }}
   with_items: "{{ ipv6_win_static_routes | default([]) }}"
   ignore_errors: true
 
