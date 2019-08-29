@@ -28,13 +28,6 @@ env:
     run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
     ansible_version: 2.8.4
     ansible_extra_vars: ""
-  - distribution: ubuntu
-    version: 14.04
-    suite: default
-    init: /sbin/init
-    run_opts: ""
-    ansible_version: 2.8.4
-    ansible_extra_vars: ""
   - distribution: alpine
     version: "3.10"
     suite: default
