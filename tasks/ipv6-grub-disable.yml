@@ -11,6 +11,8 @@
         regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
         replace: 'GRUB_CMDLINE_LINUX="\1 ipv6.disable=1"'
         backup: yes
+      notify:
+        - grub2-mkconfig
   when: >
     not (ansible_virtualization_type is defined and
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
