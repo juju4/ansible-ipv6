@@ -32,7 +32,11 @@
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
 
 - name: RedHat | unsure ipv6 not disabled in sysconfig/network
-  lineinfile: "dest=/etc/sysconfig/network regexp='^{{ item.regexp }}' line='{{ item.line }}'"
+  lineinfile:
+    dest: /etc/sysconfig/network
+    regexp: "^{{ item.regexp }}"
+    line: "{{ item.line }}"
+    create: yes
   with_items:
     - { regexp: 'NETWORKING_IPV6=.*', line: 'NETWORKING_IPV6=YES' }
     - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=yes' }
