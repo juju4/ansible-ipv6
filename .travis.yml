@@ -104,6 +104,11 @@ after_failure:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm journalctl -xe --no-pager'
 
 after_script:
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /proc/cmdline'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm sysctl -a |grep ipv6'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/modprobe.d/blacklist.conf'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/modprobe.conf'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sysconfig/network'
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
 
