@@ -103,6 +103,7 @@ before_script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm pip install --upgrade pip'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm pip install ansible==${ansible_version}'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible --version'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ip addr'
 
 script:
   # Ansible syntax check.
@@ -130,6 +131,7 @@ after_script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/modprobe.d/blacklist.conf'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/modprobe.conf'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sysconfig/network'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ip addr'
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
 
