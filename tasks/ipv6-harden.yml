@@ -47,4 +47,5 @@
     - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=yes' }
   notify:
     - restart network
+    - restart NetworkManager
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'

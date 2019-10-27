@@ -32,6 +32,7 @@
     - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=no' }
   notify:
     - restart network
+    - restart NetworkManager
   when: ansible_os_family == 'RedHat'
 
 - include: ipv6-grub-disable.yml
