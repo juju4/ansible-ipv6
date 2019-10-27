@@ -139,6 +139,8 @@ after_script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/modprobe.conf'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sysconfig/network'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ip addr || ifconfig -a || true'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d/'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /usr/lib/systemd/system/'
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
 
