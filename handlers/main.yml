@@ -25,6 +25,7 @@
 - name: restart NetworkManager
   service: name=NetworkManager state=restarted
   when: >
+    not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker") and
     ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 8
 
 - name: grub2-mkconfig
