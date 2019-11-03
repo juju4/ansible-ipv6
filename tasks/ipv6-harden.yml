@@ -15,6 +15,8 @@
     state: present
     reload: yes
   with_items: "{{ ipv6_harden_settings }}"
+  when: >
+    not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
 
 ## if it was disabled before, need to ensure settings are revert
 - name: Ensure IPv6 not disabled with sysctl
@@ -23,6 +25,8 @@
     - net.ipv6.conf.all.disable_ipv6
     - net.ipv6.conf.default.disable_ipv6
     - net.ipv6.conf.lo.disable_ipv6
+  when: >
+    not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
 
 - name: Debian | unblacklist ipv6 in modprobe
   lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' state=absent"
