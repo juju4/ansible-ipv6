@@ -29,7 +29,7 @@ env:
     suite: default
     ansible_version: 2.9.1
   - distribution: debian
-    version: 9
+    version: 10
     suite: default
     ansible_version: 2.9.1
 # past ansible version
