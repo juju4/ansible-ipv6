@@ -192,8 +192,6 @@ after_script:
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- cat /etc/modprobe.d/blacklist.conf"
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- cat /etc/modprobe.conf"
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- cat /etc/sysconfig/network"
-  - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- cat /etc/sysconfig/network"
-  - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- cat /etc/sysconfig/network"
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- ls /etc/init.d/"
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- ls /usr/lib/systemd/system/"
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- ps axuw"
