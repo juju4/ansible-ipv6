@@ -14,6 +14,12 @@
   include_vars: "Alpine.yml"
   when: ansible_os_family == "Alpine"
 
+- name: Ensure sysctl is present
+  package:
+    name: procps
+    state: present
+  when: ansible_os_family== 'Debian'
+
 - name: Check if IPv6 disabled at grub command line
   command: cat /proc/cmdline
   changed_when: false
