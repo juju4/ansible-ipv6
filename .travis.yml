@@ -95,7 +95,7 @@ before_install:
   - '[ "X${distribution}" == "Xalpine" -o "X${distribution}" == "Xdebian" ] && sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- /etc/init.d/networking restart" || true'
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- /sbin/ip addr || true"
   - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- /sbin/route -n || true"
-  - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- ping -c 1 8.8.8.8"
+  - sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- ping -c 1 8.8.8.8 || true"
   - '[ "X${distribution}" == "Xubuntu" -o "X${distribution}" == "Xdebian" ] && sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- apt-get update" || true'
   - '[ "X${distribution}" == "Xubuntu" -o "X${distribution}" == "Xdebian" ] && sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- apt-get -y install python python-apt aptitude python-pip libssl-dev python-dev libffi-dev" || true'
   - '[ "X${distribution}" == "Xcentos" -a "X${version}" == "X6" ] && sudo -E su $USER -c "lxc exec run-${distribution}-${version//./} -- rpm -iUvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm" || true'
