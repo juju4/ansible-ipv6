@@ -23,6 +23,7 @@
 - name: Check if IPv6 disabled at grub command line
   command: cat /proc/cmdline
   changed_when: false
+  check_mode: no
   ignore_errors: true
   register: cmdline
 
