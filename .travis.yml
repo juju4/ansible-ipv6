@@ -13,9 +13,10 @@ env:
     version: 7
     suite: default
     ansible_version: 2.9.1
-#  - distribution: centos
-#    version: 6
-#    suite: default
+  - distribution: ubuntu
+    version: 20.04
+    suite: default
+    ansible_version: 2.9.1
   - distribution: ubuntu
     version: 18.04
     suite: default
