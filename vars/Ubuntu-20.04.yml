@@ -1,0 +1,19 @@
+---
+
+ipv6_harden_settings:
+    - { n: 'net.ipv6.conf.all.forwarding', v: 0 }
+#    - { n: 'net.ipv6.conf.all.send_redirects', v: 0 }
+    - { n: 'net.ipv6.conf.all.accept_redirects', v: 0 }
+    - { n: 'net.ipv6.conf.all.accept_source_route', v: 0 }
+    - { n: 'net.ipv6.conf.default.accept_redirects', v: 0 }
+    - { n: 'net.ipv6.conf.default.accept_source_route', v: 0 }
+    - { n: 'net.ipv6.conf.default.router_solicitations', v: 0 }
+    - { n: 'net.ipv6.conf.default.accept_ra_rtr_pref', v: 0 }
+    - { n: 'net.ipv6.conf.default.accept_ra_pinfo', v: 0 }
+    - { n: 'net.ipv6.conf.default.accept_ra_defrtr', v: 0 }
+    - { n: 'net.ipv6.conf.all.accept_ra', v: 0 }
+    - { n: 'net.ipv6.conf.default.accept_ra', v: 0 }
+    - { n: 'net.ipv6.conf.default.autoconf', v: 0 }
+    - { n: 'net.ipv6.conf.default.dad_transmits', v: 0 }
+    - { n: 'net.ipv6.conf.default.max_addresses', v: 1 }
+    - { n: 'net.ipv6.conf.all.max_addresses', v: 1 }
