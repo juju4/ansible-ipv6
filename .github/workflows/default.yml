@@ -30,7 +30,7 @@ jobs:
           python3 -m pip install --upgrade pip
           pip3 install ansible-lint flake8 yamllint
           ansible --version
-          cd $GITHUB_WORKSPACE/juju4.auditd
+          cd $GITHUB_WORKSPACE/juju4.ipv6
           [ -f get-dependencies.sh ] && sh -x get-dependencies.sh
           { echo '[defaults]'; echo 'callback_whitelist = profile_tasks, timer'; echo 'roles_path = ../'; echo 'ansible_python_interpreter: /usr/bin/python3'; } >> ansible.cfg
       - name: yamllint
