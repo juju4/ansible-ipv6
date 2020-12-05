@@ -1,0 +1,71 @@
+---
+name: AnsibleCI
+
+on:
+  push:
+  pull_request:
+  schedule:  # run weekly, every monday 03:00
+    - cron: '0 3 * * 1'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+    env:
+      ANSIBLE_CALLBACK_WHITELIST: profile_tasks
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: juju4.ipv6
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install ansible-lint flake8 yamllint
+          ansible --version
+          cd $GITHUB_WORKSPACE/juju4.auditd
+          [ -f get-dependencies.sh ] && sh -x get-dependencies.sh
+          { echo '[defaults]'; echo 'callback_whitelist = profile_tasks, timer'; echo 'roles_path = ../'; echo 'ansible_python_interpreter: /usr/bin/python3'; } >> ansible.cfg
+      - name: yamllint
+        run: |
+          pwd
+          find -ls
+          cd $GITHUB_WORKSPACE/juju4.ipv6 && yamllint .
+      - name: ansible-lint
+        run: |
+          cd $GITHUB_WORKSPACE/juju4.ipv6 && ansible-lint
+      - name: run test
+        run: |
+          cd $GITHUB_WORKSPACE/juju4.ipv6 && ansible-playbook -i localhost, --connection=local --become -vvv test/integration/default/default.yml
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+      - name: idempotency run
+        run: |
+          cd $GITHUB_WORKSPACE/juju4.ipv6 && ansible-playbook -i localhost, --connection=local --become -vvv test/integration/default/default.yml | tee /tmp/idempotency.log | grep -q 'changed=0.*failed=0'  && (echo 'Idempotence test: pass' && exit 0)  || (echo 'Idempotence test: fail' && cat /tmp/idempotency.log && exit 1)
+      - name: On failure
+        run: |
+          ansible -i inventory --connection=local -m setup localhost
+        if: env.WORKFLOW_CONCLUSION == 'failure'  # notify only if failure
+      - name: After script
+        run: |
+          cat /proc/cmdline
+          sysctl -a |grep ipv6
+          cat /etc/modprobe.d/blacklist.conf
+          cat /etc/modprobe.conf
+          cat /etc/sysconfig/network
+          ls /etc/init.d/
+          ls /usr/lib/systemd/system/
+          ip addr
+          ip route
+          cat /etc/resolv.conf
+          ping -c 1 8.8.8.8
+          ping -c 1 www.google.com
+        continue-on-error: true
