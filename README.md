@@ -1,6 +1,9 @@
 [![Build Status - Master](https://travis-ci.org/juju4/ansible-ipv6.svg?branch=master)](https://travis-ci.org/juju4/ansible-ipv6)
 [![Build Status - Devel](https://travis-ci.org/juju4/ansible-ipv6.svg?branch=devel)](https://travis-ci.org/juju4/ansible-ipv6/branches)
 
+[![Actions Status - Master](https://github.com/juju4/ansible-ipv6/workflows/AnsibleCI/badge.svg)](https://github.com/juju4/ansible-ipv6/actions?query=branch%3Amaster)
+[![Actions Status - Devel](https://github.com/juju4/ansible-ipv6/workflows/AnsibleCI/badge.svg?branch=devel)](https://github.com/juju4/ansible-ipv6/actions?query=branch%3Adevel)
+
 [![Appveyor - Master](https://ci.appveyor.com/api/projects/status/y66h05noirqpdc6a/branch/master?svg=true)](https://ci.appveyor.com/project/juju4/ansible-ipv6/branch/master)
 [![Appveyor - Devel](https://ci.appveyor.com/api/projects/status/y66h05noirqpdc6a/branch/devel?svg=true)](https://ci.appveyor.com/project/juju4/ansible-ipv6/branch/devel)
 
@@ -18,6 +21,7 @@ It was tested on the following versions:
  * 2.6
  * 2.7
  * 2.8
+ * 2.10
 
 ### Operating systems
 
@@ -65,4 +69,3 @@ $ vagrant ssh
 ## License
 
 BSD 2-clause
-
