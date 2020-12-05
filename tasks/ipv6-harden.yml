@@ -45,6 +45,7 @@
     dest: /etc/sysconfig/network
     regexp: "^{{ item.regexp }}"
     line: "{{ item.line }}"
+    mode: '0644'
     create: yes
   with_items:
     - { regexp: 'NETWORKING_IPV6=.*', line: 'NETWORKING_IPV6=YES' }

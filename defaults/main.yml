@@ -1,11 +1,11 @@
 ---
 
 ipv6_config: 'disable'
-#ipv6_config: 'harden'
+# ipv6_config: 'harden'
 ipv6_grub_disable: false
 
-#ipv6_win_if:
-#ipv6_win_neighbors_list:
-#  - { ipv6: '', mac: '' }
-#ipv6_win_static_routes:
-#  - { dst: '2001:db8:1:2::/64', gw: '2001:db8:1:1::1000', metric: 2 }
+# ipv6_win_if:
+# ipv6_win_neighbors_list:
+#   - { ipv6: '', mac: '' }
+# ipv6_win_static_routes:
+#   - { dst: '2001:db8:1:2::/64', gw: '2001:db8:1:1::1000', metric: 2 }
