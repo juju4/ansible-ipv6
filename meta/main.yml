@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: ipv6
   author: juju4
   description: Disable or Harden Linux IPv6 settings
   license: BSD
