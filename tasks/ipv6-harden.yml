@@ -35,7 +35,10 @@
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: RedHat | no placeholder true for ipv6 in modprobe
-  lineinfile: "dest=/etc/modprobe.conf line='install ipv6 /bin/true' create=yes state=absent"
+  lineinfile:
+    dest: /etc/modprobe.conf
+    line: 'install ipv6 /bin/true'
+    state: absent
   notify:
     - modipv6
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'

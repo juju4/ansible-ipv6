@@ -1,6 +1,7 @@
 ---
 
-- debug: var=ansible_distribution
+- name: Debug | ansible_distribution
+  debug: var=ansible_distribution
 - name: Include version-specific variables for Ubuntu.
   include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
   when: ansible_distribution == 'Ubuntu'
@@ -27,9 +28,12 @@
   ignore_errors: true
   register: cmdline
 
-- debug: var=cmdline
-- debug: var=ansible_os_family
-- debug: var=ipv6_config
+- name: Debug | cmdline
+  debug: var=cmdline
+- name: Debug | ansible_os_family
+  debug: var=ansible_os_family
+- name: Debug | ipv6_config
+  debug: var=ipv6_config
 - block:
     - include: ipv6-harden.yml
       when: ipv6_config is defined and ipv6_config == 'harden'
