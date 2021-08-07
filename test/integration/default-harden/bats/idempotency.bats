@@ -10,4 +10,3 @@
     run bash -c "ansible-playbook -i /tmp/kitchen/hosts /tmp/kitchen/default.yml -c local | tee /tmp/idempotency.test | grep -q 'changed=0.*failed=0' && exit 0 || exit 1"
     [ "$status" -eq 0 ]
 }
-

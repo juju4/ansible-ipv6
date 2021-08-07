@@ -26,4 +26,3 @@ end
 describe file('/etc/modprobe.conf'), :if => os[:family] == 'redhat' do
   it { should contain "install ipv6 /bin/true" }
 end
-

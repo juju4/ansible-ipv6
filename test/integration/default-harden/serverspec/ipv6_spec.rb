@@ -18,4 +18,3 @@ describe command("sysctl -a") do
   its(:stdout) { should match /^net\.ipv6\.conf\.default\.router_solicitations = 0$/ }
   its(:stdout) { should match /^net\.ipv6\.conf\.all\.accept_ra = 0$/ }
 end
-
