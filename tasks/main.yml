@@ -35,11 +35,11 @@
 - name: Debug | ipv6_config
   debug: var=ipv6_config
 - block:
-    - include: ipv6-harden.yml
+    - import_tasks: ipv6-harden.yml
       when: ipv6_config is defined and ipv6_config == 'harden'
-    - include: ipv6-disable.yml
+    - import_tasks: ipv6-disable.yml
       when: ipv6_config is not defined or ipv6_config == 'disable'
   when: ansible_system == 'Linux' and not (' ipv6.disable=1' in cmdline.stdout)
 
-- include: windows-ipv6.yml
+- import_tasks: windows-ipv6.yml
   when: ansible_system == 'Win32NT'

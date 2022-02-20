@@ -44,7 +44,7 @@
     - restart NetworkManager
   when: ansible_os_family == 'RedHat'
 
-- include: ipv6-grub-disable.yml
+- import_tasks: ipv6-grub-disable.yml
 
 ## either control router sollicitation/advertisement to avoid malicious rerouting of IPv6
 ## Monitor?
