@@ -1,39 +1,39 @@
 ---
 
 - name: Debug | ansible_distribution
-  debug: var=ansible_distribution
+  ansible.builtin.debug: var=ansible_distribution
 - name: Include version-specific variables for Ubuntu.
-  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
   when: ansible_distribution == 'Ubuntu'
 - name: Include version-specific variables for Debian.
-  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
   when: ansible_distribution == 'Debian'
 - name: Include version-specific variables for RedHat
-  include_vars: "RedHat-{{ ansible_distribution_version.split('.')[0] }}.yml"
+  ansible.builtin.include_vars: "RedHat-{{ ansible_distribution_version.split('.')[0] }}.yml"
   when: ansible_os_family == "RedHat"
 - name: Include version-specific variables for Alpine
-  include_vars: "Alpine.yml"
+  ansible.builtin.include_vars: "Alpine.yml"
   when: ansible_os_family == "Alpine"
 
 - name: Ensure sysctl is present
-  package:
+  ansible.builtin.package:
     name: procps
     state: present
   when: ansible_os_family== 'Debian'
 
 - name: Check if IPv6 disabled at grub command line
-  command: cat /proc/cmdline
+  ansible.builtin.command: cat /proc/cmdline
   changed_when: false
   check_mode: no
   ignore_errors: true
   register: cmdline
 
 - name: Debug | cmdline
-  debug: var=cmdline
+  ansible.builtin.debug: var=cmdline
 - name: Debug | ansible_os_family
-  debug: var=ansible_os_family
+  ansible.builtin.debug: var=ansible_os_family
 - name: Debug | ipv6_config
-  debug: var=ipv6_config
+  ansible.builtin.debug: var=ipv6_config
 - block:
     - import_tasks: ipv6-harden.yml
       when: ipv6_config is defined and ipv6_config == 'harden'

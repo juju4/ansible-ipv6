@@ -9,7 +9,7 @@
     - net.ipv6.conf.lo.disable_ipv6
 
 - name: Debian | blacklist ipv6 in modprobe
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/modprobe.d/blacklist.conf
     line: 'blacklist ipv6'
     mode: '0644'
@@ -19,7 +19,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: RedHat | placeholder true for ipv6 in modprobe
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/modprobe.conf
     line: 'install ipv6 /bin/true'
     mode: '0644'
@@ -29,7 +29,7 @@
   when: ansible_os_family == 'RedHat'
 
 - name: RedHat | disable ipv6 in sysconfig/network
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/sysconfig/network
     regexp: "^{{ item.regexp }}"
     line: "{{ item.line }}"

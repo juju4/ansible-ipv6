@@ -29,13 +29,13 @@
     not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
 
 - name: Debian | unblacklist ipv6 in modprobe
-  lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' state=absent"
+  ansible.builtin.lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' state=absent"
   notify:
     - modipv6
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: RedHat | no placeholder true for ipv6 in modprobe
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/modprobe.conf
     line: 'install ipv6 /bin/true'
     state: absent
@@ -44,7 +44,7 @@
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
 
 - name: RedHat | unsure ipv6 not disabled in sysconfig/network
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/sysconfig/network
     regexp: "^{{ item.regexp }}"
     line: "{{ item.line }}"

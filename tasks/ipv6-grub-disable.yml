@@ -1,7 +1,7 @@
 ---
 
 - name: Check if grub is present
-  stat: path=/etc/default/grub
+  ansible.builtin.stat: path=/etc/default/grub
   register: hasgrub
 
 - block:
@@ -17,7 +17,7 @@
         ipv6_regexp: ^GRUB_CMDLINE_LINUX={{ ipv6_quote + ipv6_before_simpler + ipv6_existing + ipv6_after }}\1{{ ipv6_comments }}$
         ipv6_replace: GRUB_CMDLINE_LINUX=\1\2\4 ipv6.disable=1\1\5
         ipv6_replace_debug: 2)\2 3)\3 4)\4 5)\5 {{ ipv6_replace }}
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/default/grub
         regexp: "{{ ipv6_regexp }}"
         line: "{{ ipv6_replace }}"

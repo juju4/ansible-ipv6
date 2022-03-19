@@ -4,27 +4,27 @@
 
 ## Note: first implies second
 - name: Disable Automatic Configuration, Neighbor Discovery Process and MLD Operation
-  raw: "netsh interface ipv6 set global mldlevel=none"
+  ansible.builtin.raw: "netsh interface ipv6 set global mldlevel=none"
 - name: Adding Static Entries Into Neighbor Cache
-  raw: "netsh interface ipv6 set neighbors \"{{ ipv6_win_if }}\" \"{{ item.ipv6 }}\" \"{{ item.mac }}\""
+  ansible.builtin.raw: "netsh interface ipv6 set neighbors \"{{ ipv6_win_if }}\" \"{{ item.ipv6 }}\" \"{{ item.mac }}\""
   with_items: "{{ ipv6_win_neighbors_list | default([]) }}"
 
 - name: Disabling ICMPv6 Redirects
-  raw: "netsh interface ipv6 set global icmpredirects=disabled"
+  ansible.builtin.raw: "netsh interface ipv6 set global icmpredirects=disabled"
 - name: Configuring Manually the Default Current Hop Limit
-  raw: "netsh interface ipv6 set global defaultcurhoplimit=64"
+  ansible.builtin.raw: "netsh interface ipv6 set global defaultcurhoplimit=64"
 - name: Disabling ISATAP and Teredo
-  raw: "{{ item }}"
+  ansible.builtin.raw: "{{ item }}"
   with_items:
     - netsh interface ipv6 isatap set state disabled
     - netsh interface ipv6 set teredo type=disabled
     - netsh interface ipv6 6to4 set state disabled
 
 - name: Setting the MTU, Disabling Router Discovery and Minimising DAD Transmits Per Interface
-  raw: 'netsh  interface ipv6 set interface "1" mtu=1280  dadtransmits=0 routerdiscovery=disabled'
+  ansible.builtin.raw: 'netsh  interface ipv6 set interface "1" mtu=1280  dadtransmits=0 routerdiscovery=disabled'
 
 - name: Defining Manually Static Routes
-  raw: >
+  ansible.builtin.raw: >
     netsh interface ipv6 add route prefix={{ item.dst }} interface="{{ ipv6_win_if }}" nexthop={{ item.gw }} siteprefixlength=0 metric={{ item.metric }} publish=no
   with_items: "{{ ipv6_win_static_routes | default([]) }}"
   register: addroute
