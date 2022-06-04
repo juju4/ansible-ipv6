@@ -34,7 +34,8 @@
   ansible.builtin.debug: var=ansible_os_family
 - name: Debug | ipv6_config
   ansible.builtin.debug: var=ipv6_config
-- block:
+- name: Linux and IPv6 not disabled at boot
+  block:
     - import_tasks: ipv6-harden.yml
       when: ipv6_config is defined and ipv6_config == 'harden'
     - import_tasks: ipv6-disable.yml

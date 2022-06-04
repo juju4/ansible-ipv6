@@ -4,7 +4,8 @@
   ansible.builtin.stat: path=/etc/default/grub
   register: hasgrub
 
-- block:
+- name: Grub
+  block:
     - name: Disable IPv6 in grub
       vars:
         ipv6_quote: (["']?)                                # group 1
