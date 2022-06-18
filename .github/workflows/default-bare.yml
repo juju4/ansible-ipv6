@@ -9,11 +9,23 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.distribution }}-${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       max-parallel: 4
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04, ubuntu-18.04]
+        include:
+          - distribution: ubuntu
+            version: '22.04'
+            experimental: true
+          - distribution: ubuntu
+            version: '20.04'
+            experimental: false
+          - distribution: ubuntu
+            version: '18.04'
+            experimental: false
     env:
       ANSIBLE_CALLBACKS_ENABLED: profile_tasks
 
