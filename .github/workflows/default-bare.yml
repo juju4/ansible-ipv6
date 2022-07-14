@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.distribution }}-${{ matrix.os }}
+    runs-on: ${{ matrix.distribution }}-${{ matrix.version }}
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
