@@ -1,13 +1,13 @@
 ---
 
-- name: ensure ipv6 module loaded
+- name: Ensure ipv6 module loaded
   modprobe: name=ipv6 state=present
   when: >
     not (ansible_virtualization_type is defined and
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
         )
 
-- name: harden ipv6 sysctl config - network
+- name: Harden ipv6 sysctl config - network
   sysctl:
     name: "{{ item.n }}"
     value: "{{ item.v }}"
@@ -31,7 +31,7 @@
 - name: Debian | unblacklist ipv6 in modprobe
   ansible.builtin.lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' state=absent"
   notify:
-    - modipv6
+    - Modipv6
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: RedHat | no placeholder true for ipv6 in modprobe
@@ -40,7 +40,7 @@
     line: 'install ipv6 /bin/true'
     state: absent
   notify:
-    - modipv6
+    - Modipv6
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
 
 - name: RedHat | unsure ipv6 not disabled in sysconfig/network
@@ -54,6 +54,6 @@
     - { regexp: 'NETWORKING_IPV6=.*', line: 'NETWORKING_IPV6=YES' }
     - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=yes' }
   notify:
-    - restart network
-    - restart NetworkManager
+    - Restart network
+    - Restart NetworkManager
   when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'

@@ -15,7 +15,7 @@
     mode: '0644'
     create: yes
   notify:
-    - rmmodipv6
+    - Rmmodipv6
   when: ansible_os_family == 'Debian'
 
 - name: RedHat | placeholder true for ipv6 in modprobe
@@ -25,7 +25,7 @@
     mode: '0644'
     create: yes
   notify:
-    - rmmodipv6
+    - Rmmodipv6
   when: ansible_os_family == 'RedHat'
 
 - name: RedHat | disable ipv6 in sysconfig/network
@@ -40,8 +40,8 @@
     - { regexp: 'NETWORKING_IPV6=.*', line: 'NETWORKING_IPV6=NO' }
     - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=no' }
   notify:
-    - restart network
-    - restart NetworkManager
+    - Restart network
+    - Restart NetworkManager
   when: ansible_os_family == 'RedHat'
 
 - import_tasks: ipv6-grub-disable.yml

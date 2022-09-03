@@ -27,7 +27,7 @@
         mode: '0644'
         backup: yes
       notify:
-        - grub2-mkconfig
+        - Grub2-mkconfig
   when: >
     not (ansible_virtualization_type is defined and
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
