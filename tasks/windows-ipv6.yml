@@ -3,27 +3,27 @@
 ## https://www.ernw.de/download/ERNW_Guide_to_Configure_Securely_Windows_Servers_For_IPv6_v1_0.pdf
 
 ## Note: first implies second
-- name: Disable Automatic Configuration, Neighbor Discovery Process and MLD Operation
+- name: Disable Automatic Configuration, Neighbor Discovery Process and MLD Operation  # noqa no-changed-when
   ansible.builtin.raw: "netsh interface ipv6 set global mldlevel=none"
-- name: Adding Static Entries Into Neighbor Cache
+- name: Adding Static Entries Into Neighbor Cache  # noqa no-changed-when
   ansible.builtin.raw: "netsh interface ipv6 set neighbors \"{{ ipv6_win_if }}\" \"{{ item.ipv6 }}\" \"{{ item.mac }}\""
   with_items: "{{ ipv6_win_neighbors_list | default([]) }}"
 
-- name: Disabling ICMPv6 Redirects
+- name: Disabling ICMPv6 Redirects  # noqa no-changed-when
   ansible.builtin.raw: "netsh interface ipv6 set global icmpredirects=disabled"
-- name: Configuring Manually the Default Current Hop Limit
+- name: Configuring Manually the Default Current Hop Limit  # noqa no-changed-when
   ansible.builtin.raw: "netsh interface ipv6 set global defaultcurhoplimit=64"
-- name: Disabling ISATAP and Teredo
+- name: Disabling ISATAP and Teredo  # noqa no-changed-when
   ansible.builtin.raw: "{{ item }}"
   with_items:
     - netsh interface ipv6 isatap set state disabled
     - netsh interface ipv6 set teredo type=disabled
     - netsh interface ipv6 6to4 set state disabled
 
-- name: Setting the MTU, Disabling Router Discovery and Minimising DAD Transmits Per Interface
+- name: Setting the MTU, Disabling Router Discovery and Minimising DAD Transmits Per Interface  # noqa no-changed-when
   ansible.builtin.raw: 'netsh  interface ipv6 set interface "1" mtu=1280  dadtransmits=0 routerdiscovery=disabled'
 
-- name: Defining Manually Static Routes
+- name: Defining Manually Static Routes  # noqa no-changed-when
   ansible.builtin.raw: >
     netsh interface ipv6 add route prefix={{ item.dst }} interface="{{ ipv6_win_if }}" nexthop={{ item.gw }} siteprefixlength=0 metric={{ item.metric }} publish=no
   with_items: "{{ ipv6_win_static_routes | default([]) }}"

@@ -2,7 +2,11 @@
 
 ## either disable
 - name: Disable IPv6 with sysctl
-  sysctl: name={{ item }} value=1 state=present reload=yes
+  ansible.posix.sysctl:
+    name: "{{ item }}"
+    value: "1"
+    state: "present"
+    reload: "yes"
   with_items:
     - net.ipv6.conf.all.disable_ipv6
     - net.ipv6.conf.default.disable_ipv6
@@ -44,7 +48,8 @@
     - Restart NetworkManager
   when: ansible_os_family == 'RedHat'
 
-- import_tasks: ipv6-grub-disable.yml
+- name: Import ipv6-grub-disable
+  ansible.builtin.import_tasks: ipv6-grub-disable.yml
 
 ## either control router sollicitation/advertisement to avoid malicious rerouting of IPv6
 ## Monitor?

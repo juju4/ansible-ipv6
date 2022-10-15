@@ -1,14 +1,16 @@
 ---
 
 - name: Ensure ipv6 module loaded
-  modprobe: name=ipv6 state=present
+  community.general.modprobe:
+    name: ipv6
+    state: present
   when: >
     not (ansible_virtualization_type is defined and
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
         )
 
 - name: Harden ipv6 sysctl config - network
-  sysctl:
+  ansible.posix.sysctl:
     name: "{{ item.n }}"
     value: "{{ item.v }}"
     sysctl_set: yes
@@ -20,7 +22,10 @@
 
 ## if it was disabled before, need to ensure settings are revert
 - name: Ensure IPv6 not disabled with sysctl
-  sysctl: name={{ item }} value=0 state=present
+  ansible.posix.sysctl:
+    name: "{{ item }}"
+    value: "0"
+    state: "present"
   with_items:
     - net.ipv6.conf.all.disable_ipv6
     - net.ipv6.conf.default.disable_ipv6
@@ -29,7 +34,10 @@
     not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
 
 - name: Debian | unblacklist ipv6 in modprobe
-  ansible.builtin.lineinfile: "dest=/etc/modprobe.d/blacklist.conf line='blacklist ipv6' state=absent"
+  ansible.builtin.lineinfile:
+    dest: /etc/modprobe.d/blacklist.conf
+    line: 'blacklist ipv6'
+    state: absent"
   notify:
     - Modipv6
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

@@ -1,7 +1,8 @@
 ---
 
 - name: Debug | ansible_distribution
-  ansible.builtin.debug: var=ansible_distribution
+  ansible.builtin.debug:
+    var: ansible_distribution
 - name: Include version-specific variables for Ubuntu.
   ansible.builtin.include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
   when: ansible_distribution == 'Ubuntu'
@@ -29,18 +30,24 @@
   register: cmdline
 
 - name: Debug | cmdline
-  ansible.builtin.debug: var=cmdline
+  ansible.builtin.debug:
+    var: cmdline
 - name: Debug | ansible_os_family
-  ansible.builtin.debug: var=ansible_os_family
+  ansible.builtin.debug:
+    var: ansible_os_family
 - name: Debug | ipv6_config
-  ansible.builtin.debug: var=ipv6_config
+  ansible.builtin.debug:
+    var: ipv6_config
 - name: Linux and IPv6 not disabled at boot
-  block:
-    - import_tasks: ipv6-harden.yml
-      when: ipv6_config is defined and ipv6_config == 'harden'
-    - import_tasks: ipv6-disable.yml
-      when: ipv6_config is not defined or ipv6_config == 'disable'
   when: ansible_system == 'Linux' and not (' ipv6.disable=1' in cmdline.stdout)
+  block:
+    - name: Import ipv6-harden
+      ansible.builtin.import_tasks: ipv6-harden.yml
+      when: ipv6_config is defined and ipv6_config == 'harden'
+    - name: Import ipv6-disable
+      ansible.builtin.import_tasks: ipv6-disable.yml
+      when: ipv6_config is not defined or ipv6_config == 'disable'
 
-- import_tasks: windows-ipv6.yml
+- name: Import windows-ipv6
+  ansible.builtin.import_tasks: windows-ipv6.yml
   when: ansible_system == 'Win32NT'
