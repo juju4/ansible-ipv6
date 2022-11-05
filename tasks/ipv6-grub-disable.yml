@@ -32,4 +32,4 @@
         mode: '0644'
         backup: yes
       notify:
-        - Grub2-mkconfig
+        - Grub mkconfig

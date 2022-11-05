@@ -32,8 +32,8 @@
     not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker") and
     ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 8
 
-- name: Grub2-mkconfig
-  ansible.builtin.command: grub2-mkconfig -o /boot/grub2/grub.cfg
+- name: Grub mkconfig
+  ansible.builtin.command: "{{ ipv6_grub_mkconfig }} -o /boot/grub2/grub.cfg"
   when: >
     not (ansible_virtualization_type is defined and
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
