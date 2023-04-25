@@ -37,7 +37,7 @@
   ansible.builtin.lineinfile:
     dest: /etc/modprobe.d/blacklist.conf
     line: 'blacklist ipv6'
-    state: absent"
+    state: "absent"
   notify:
     - Modipv6
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
