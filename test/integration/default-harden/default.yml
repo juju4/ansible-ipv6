@@ -1,7 +1,8 @@
 ---
 
-- hosts: all
+- name: Test integration playbook
+  hosts: all
   vars:
-    - ipv6_config: 'harden'
+    ipv6_config: 'harden'
   roles:
     - juju4.ipv6

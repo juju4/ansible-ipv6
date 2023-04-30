@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- name: Test integration playbook
+  hosts: all
   vars:
     ipv6_win_if: 'Ethernet 8'
     ipv6_win_static_routes:
