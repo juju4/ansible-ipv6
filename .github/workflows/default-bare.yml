@@ -52,6 +52,9 @@ jobs:
           cd $GITHUB_WORKSPACE/juju4.ipv6
           [ -f get-dependencies.sh ] && sh -x get-dependencies.sh
           { echo '[defaults]'; echo 'callbacks_enabled = profile_tasks, timer'; echo 'roles_path = ../'; echo 'ansible_python_interpreter: /usr/bin/python3'; } >> ansible.cfg
+      - name: Add GRUB
+        run: |
+          sudo apt-get install -y grub2
       - name: run test
         run: |
           cd $GITHUB_WORKSPACE/juju4.ipv6 && ansible-playbook -i localhost, --connection=local --become -vvv test/integration/default/default.yml
