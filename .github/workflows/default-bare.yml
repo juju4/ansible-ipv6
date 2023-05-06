@@ -29,7 +29,7 @@ jobs:
             experimental: false
     env:
       ANSIBLE_CALLBACKS_ENABLED: profile_tasks
-      ANSIBLE_EXTRA_VARS: "ipv6_grub_disable=true"
+      ANSIBLE_EXTRA_VARS: "-e ipv6_grub_disable=true"
 
     steps:
       - uses: actions/checkout@v3
