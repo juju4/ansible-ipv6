@@ -71,18 +71,35 @@ jobs:
         if: env.WORKFLOW_CONCLUSION == 'failure'  # notify only if failure
       - name: After script
         run: |
+          set -x
+          cat /etc/sysconfig/network || true
+          ls /etc/init.d/ || true
+          ls /usr/lib/systemd/system/ || true
+          ip addr || true
+          ip route || true
+          cat /etc/resolv.conf || true
+          ping -c 1 8.8.8.8 || true
+          ping -c 1 www.google.com || true
+        if: ${{ always() }}
+        continue-on-error: true
+      - name: After script - grub
+        run: |
+          set -x
           cat /proc/cmdline
+          ls -lR /boot || true
+          cat /etc/default/grub || true
+        if: ${{ always() }}
+        continue-on-error: true
+      - name: After script - sysctl
+        run: |
+          set -x
           sysctl -a |grep ipv6
-          cat /etc/modprobe.d/blacklist.conf
-          cat /etc/modprobe.conf
-          cat /etc/sysconfig/network
-          ls /etc/init.d/
-          ls /usr/lib/systemd/system/
-          ls -lR /boot
-          ip addr
-          ip route
-          cat /etc/resolv.conf
-          ping -c 1 8.8.8.8
-          ping -c 1 www.google.com
+        if: ${{ always() }}
+        continue-on-error: true
+      - name: After script -modprobe
+        run: |
+          set -x
+          cat /etc/modprobe.d/blacklist.conf || true
+          cat /etc/modprobe.conf || true
         if: ${{ always() }}
         continue-on-error: true
