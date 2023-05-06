@@ -78,6 +78,7 @@ jobs:
           cat /etc/sysconfig/network
           ls /etc/init.d/
           ls /usr/lib/systemd/system/
+          ls -lR /boot
           ip addr
           ip route
           cat /etc/resolv.conf
