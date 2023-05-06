@@ -21,8 +21,8 @@
       register: grub2dir
     - name: Symlink /boot/grub2 to /boot/grub
       ansible.builtin.file:
-        src: /boot/grub2
-        dest: /boot/grub
+        src: /boot/grub
+        dest: /boot/grub2
         state: link
       when:
         - grubdir.stat.exists
