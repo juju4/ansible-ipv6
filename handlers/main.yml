@@ -1,6 +1,6 @@
 ---
 ## Ubuntu16.04: rmmod: ERROR: Module ipv6 is builtin.
-- name: Rmmodipv6
+- name: Rmmodipv6  # noqa no-changed-when
   ansible.builtin.command: rmmod ipv6
   failed_when: false
   when: >
@@ -8,7 +8,7 @@
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
         )
 
-- name: Modipv6
+- name: Modipv6  # noqa no-changed-when
   ansible.builtin.command: modprobe ipv6
   failed_when: false
   when: >
@@ -32,7 +32,7 @@
     not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker") and
     ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 8
 
-- name: Grub mkconfig
+- name: Grub mkconfig  # noqa no-changed-when
   ansible.builtin.command: "{{ ipv6_grub_mkconfig }} -o /boot/grub2/grub.cfg"
   when: >
     not (ansible_virtualization_type is defined and
