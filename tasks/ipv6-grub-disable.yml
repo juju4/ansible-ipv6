@@ -27,9 +27,9 @@
         path: /etc/default/grub
         regexp: "{{ ipv6_regexp }}"
         line: "{{ ipv6_replace }}"
-        backrefs: yes
-        create: no
+        backrefs: true
+        create: false
         mode: '0644'
-        backup: yes
+        backup: true
       notify:
         - Grub mkconfig
