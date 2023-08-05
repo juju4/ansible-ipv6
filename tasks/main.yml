@@ -25,7 +25,7 @@
 - name: Check if IPv6 disabled at grub command line
   ansible.builtin.command: cat /proc/cmdline
   changed_when: false
-  check_mode: no
+  check_mode: false
   ignore_errors: true
   register: cmdline
 

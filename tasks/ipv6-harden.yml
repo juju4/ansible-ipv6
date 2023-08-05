@@ -13,9 +13,9 @@
   ansible.posix.sysctl:
     name: "{{ item.n }}"
     value: "{{ item.v }}"
-    sysctl_set: yes
+    sysctl_set: true
     state: present
-    reload: yes
+    reload: true
   with_items: "{{ ipv6_harden_settings }}"
   when: >
     not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
@@ -57,7 +57,7 @@
     regexp: "^{{ item.regexp }}"
     line: "{{ item.line }}"
     mode: '0644'
-    create: yes
+    create: true
   with_items:
     - { regexp: 'NETWORKING_IPV6=.*', line: 'NETWORKING_IPV6=YES' }
     - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=yes' }
