@@ -38,3 +38,9 @@
     not (ansible_virtualization_type is defined and
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
         )
+        
+- name: Restart docker.service
+  ansible.builtin.systemd:
+    name: docker.service
+    state: restarted
+  when: ansible_facts.services['docker.service'] is defined
