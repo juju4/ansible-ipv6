@@ -1,7 +1,7 @@
 ---
 - name: Populate service facts
   ansible.builtin.service_facts:
-  
+
 - name: Debug | ansible_distribution
   ansible.builtin.debug:
     var: ansible_distribution
