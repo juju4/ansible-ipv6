@@ -46,6 +46,7 @@
   notify:
     - Restart network
     - Restart NetworkManager
+    - Restart docker.service
   when: ansible_os_family == 'RedHat'
 
 - name: Import ipv6-grub-disable
