@@ -6,10 +6,12 @@
   register: hasgrub
 
 - name: Grub
-  when: >
-    not (ansible_virtualization_type is defined and
+  when:
+    - not (ansible_virtualization_type is defined and
           (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
-        ) and hasgrub.stat.exists and ipv6_grub_disable
+        )
+    - hasgrub.stat.exists
+    - ipv6_grub_disable | bool
   block:
     - name: Check if /boot/grub exists
       ansible.builtin.stat:
