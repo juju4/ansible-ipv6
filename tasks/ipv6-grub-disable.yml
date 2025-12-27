@@ -7,8 +7,8 @@
 
 - name: Grub
   when:
-    - not (ansible_virtualization_type is defined and
-          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+    - not (ansible_facts['virtualization_type'] is defined and
+          (ansible_facts['virtualization_type'] == "lxc" or ansible_facts['virtualization_type'] == "docker")
         )
     - hasgrub.stat.exists
     - ipv6_grub_disable | bool

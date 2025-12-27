@@ -2,27 +2,27 @@
 - name: Populate service facts
   ansible.builtin.service_facts:
 
-- name: Debug | ansible_distribution
+- name: Debug | ansible_facts['distribution']
   ansible.builtin.debug:
-    var: ansible_distribution
+    var: ansible_facts['distribution']
 - name: Include version-specific variables for Ubuntu.
-  ansible.builtin.include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-  when: ansible_distribution == 'Ubuntu'
+  ansible.builtin.include_vars: "{{ ansible_facts['distribution'] }}-{{ ansible_facts['distribution_version'] }}.yml"
+  when: ansible_facts['distribution'] == 'Ubuntu'
 - name: Include version-specific variables for Debian.
-  ansible.builtin.include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-  when: ansible_distribution == 'Debian'
+  ansible.builtin.include_vars: "{{ ansible_facts['distribution'] }}-{{ ansible_facts['distribution_major_version'] }}.yml"
+  when: ansible_facts['distribution'] == 'Debian'
 - name: Include version-specific variables for RedHat
-  ansible.builtin.include_vars: "RedHat-{{ ansible_distribution_version.split('.')[0] }}.yml"
-  when: ansible_os_family == "RedHat"
+  ansible.builtin.include_vars: "RedHat-{{ ansible_facts['distribution_major_version'] }}.yml"
+  when: ansible_facts['os_family'] == "RedHat"
 - name: Include version-specific variables for Alpine
   ansible.builtin.include_vars: "Alpine.yml"
-  when: ansible_os_family == "Alpine"
+  when: ansible_facts['os_family'] == "Alpine"
 
 - name: Ensure sysctl is present
   ansible.builtin.package:
     name: procps
     state: present
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Check if IPv6 disabled at grub command line
   ansible.builtin.command: cat /proc/cmdline
@@ -34,14 +34,14 @@
 - name: Debug | cmdline
   ansible.builtin.debug:
     var: cmdline
-- name: Debug | ansible_os_family
+- name: Debug | ansible_facts['os_family']
   ansible.builtin.debug:
-    var: ansible_os_family
+    var: ansible_facts['os_family']
 - name: Debug | ipv6_config
   ansible.builtin.debug:
     var: ipv6_config
 - name: Linux and IPv6 not disabled at boot
-  when: ansible_system == 'Linux' and not (' ipv6.disable=1' in cmdline.stdout)
+  when: ansible_facts['system'] == 'Linux' and not (' ipv6.disable=1' in cmdline.stdout)
   block:
     - name: Import ipv6-harden
       ansible.builtin.import_tasks: ipv6-harden.yml
@@ -52,4 +52,4 @@
 
 - name: Import windows-ipv6
   ansible.builtin.import_tasks: windows-ipv6.yml
-  when: ansible_system == 'Win32NT'
+  when: ansible_facts['system'] == 'Win32NT'

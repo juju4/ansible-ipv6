@@ -20,7 +20,7 @@
     create: true
   notify:
     - Rmmodipv6
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: RedHat | placeholder true for ipv6 in modprobe
   ansible.builtin.lineinfile:
@@ -30,7 +30,7 @@
     create: true
   notify:
     - Rmmodipv6
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
 
 - name: RedHat | disable ipv6 in sysconfig/network
   ansible.builtin.lineinfile:
@@ -47,7 +47,7 @@
     - Restart network
     - Restart NetworkManager
     - Restart docker.service
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
 
 - name: Import ipv6-grub-disable
   ansible.builtin.import_tasks: ipv6-grub-disable.yml

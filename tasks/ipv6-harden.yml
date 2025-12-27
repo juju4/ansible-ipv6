@@ -5,8 +5,8 @@
     name: ipv6
     state: present
   when: >
-    not (ansible_virtualization_type is defined and
-          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+    not (ansible_facts['virtualization_type'] is defined and
+          (ansible_facts['virtualization_type'] == "lxc" or ansible_facts['virtualization_type'] == "docker")
         )
 
 - name: Harden ipv6 sysctl config - network
@@ -18,7 +18,7 @@
     reload: true
   with_items: "{{ ipv6_harden_settings }}"
   when: >
-    not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
+    not (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] == "docker")
 
 ## if it was disabled before, need to ensure settings are revert
 - name: Ensure IPv6 not disabled with sysctl
@@ -31,7 +31,7 @@
     - net.ipv6.conf.default.disable_ipv6
     - net.ipv6.conf.lo.disable_ipv6
   when: >
-    not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
+    not (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] == "docker")
 
 - name: Debian | unblacklist ipv6 in modprobe
   ansible.builtin.lineinfile:
@@ -40,7 +40,7 @@
     state: "absent"
   notify:
     - Modipv6
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: ansible_facts['distribution'] == 'Debian' or ansible_facts['distribution'] == 'Ubuntu'
 
 - name: RedHat | no placeholder true for ipv6 in modprobe
   ansible.builtin.lineinfile:
@@ -49,7 +49,7 @@
     state: absent
   notify:
     - Modipv6
-  when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
+  when: ansible_facts['distribution'] == 'Redhat' or ansible_facts['distribution'] == 'CentOS'
 
 - name: RedHat | unsure ipv6 not disabled in sysconfig/network
   ansible.builtin.lineinfile:
@@ -64,4 +64,4 @@
   notify:
     - Restart network
     - Restart NetworkManager
-  when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
+  when: ansible_facts['distribution'] == 'Redhat' or ansible_facts['distribution'] == 'CentOS'
