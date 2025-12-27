@@ -4,16 +4,16 @@
   ansible.builtin.command: rmmod ipv6
   failed_when: false
   when: >
-    not (ansible_virtualization_type is defined and
-          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+    not (ansible_facts['virtualization_type'] is defined and
+          (ansible_facts['virtualization_type'] == "lxc" or ansible_facts['virtualization_type'] == "docker")
         )
 
 - name: Modipv6  # noqa no-changed-when
   ansible.builtin.command: modprobe ipv6
   failed_when: false
   when: >
-    not (ansible_virtualization_type is defined and
-          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+    not (ansible_facts['virtualization_type'] is defined and
+          (ansible_facts['virtualization_type'] == "lxc" or ansible_facts['virtualization_type'] == "docker")
         )
 
 - name: Restart network
@@ -21,22 +21,22 @@
     name: network
     state: restarted
   when: >
-    not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker") and
-    not (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 8)
+    not (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] == "docker") and
+    not (ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version']|int >= 8)
 
 - name: Restart NetworkManager
   ansible.builtin.service:
     name: NetworkManager
     state: restarted
   when: >
-    not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker") and
-    ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 8
+    not (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] == "docker") and
+    ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version']|int >= 8
 
 - name: Grub mkconfig  # noqa no-changed-when
   ansible.builtin.command: "{{ ipv6_grub_mkconfig }} -o /boot/grub2/grub.cfg"
   when: >
-    not (ansible_virtualization_type is defined and
-          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+    not (ansible_facts['virtualization_type'] is defined and
+          (ansible_facts['virtualization_type'] == "lxc" or ansible_facts['virtualization_type'] == "docker")
         )
 
 - name: Restart docker.service
