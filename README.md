@@ -1,10 +1,7 @@
-[![Actions Status - Master](https://github.com/juju4/ansible-ipv6/workflows/AnsibleCI/badge.svg)](https://github.com/juju4/ansible-ipv6/actions?query=branch%3Amaster)
-[![Actions Status - Devel](https://github.com/juju4/ansible-ipv6/workflows/AnsibleCI/badge.svg?branch=devel)](https://github.com/juju4/ansible-ipv6/actions?query=branch%3Adevel)
-
-[![Appveyor - Master](https://ci.appveyor.com/api/projects/status/y66h05noirqpdc6a/branch/master?svg=true)](https://ci.appveyor.com/project/juju4/ansible-ipv6/branch/master)
-[![Appveyor - Devel](https://ci.appveyor.com/api/projects/status/y66h05noirqpdc6a/branch/devel?svg=true)](https://ci.appveyor.com/project/juju4/ansible-ipv6/branch/devel)
-
 # IPv6 ansible role
+
+[![Actions Status - Main](https://github.com/juju4/ansible-ipv6/workflows/AnsibleCI/badge.svg)](https://github.com/juju4/ansible-ipv6/actions?query=branch%3Amain)
+[![Actions Status - Devel](https://github.com/juju4/ansible-ipv6/workflows/AnsibleCI/badge.svg?branch=devel)](https://github.com/juju4/ansible-ipv6/actions?query=branch%3Adevel)
 
 A simple ansible role to either harden, either disable ipv6 in linux and Windows systems.
 
